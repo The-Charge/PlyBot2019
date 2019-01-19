@@ -73,24 +73,50 @@ Children:
           validators: *id002
           value: '9'
       Base: Talon SRX
-      Name: Motor
+      Name: MotorStage1
     - Children: []
       Properties:
         Output Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
+          choices: &id003 ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
           name: Output Channel (Solenoid)
-          validators: [Solenoid]
+          validators: &id004 [Solenoid]
           value: '1'
         Output PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
-            '12', '13', '14', '15', '16', '17', '18', '19', '20']
+          choices: &id005 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
           default: '0'
           name: Output PCM (Solenoid)
-          validators: [Solenoid]
+          validators: &id006 [Solenoid]
           value: '0'
       Base: Solenoid
-      Name: Brakes
+      Name: BrakeStage1
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: '2'
+          name: CAN ID
+          validators: *id002
+          value: '4'
+      Base: Talon SRX
+      Name: MotorStage2
+    - Children: []
+      Properties:
+        Output Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id003
+          default: '0'
+          name: Output Channel (Solenoid)
+          validators: *id004
+          value: '2'
+        Output PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id005
+          default: '0'
+          name: Output PCM (Solenoid)
+          validators: *id006
+          value: '0'
+      Base: Solenoid
+      Name: BrakeStage2
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
