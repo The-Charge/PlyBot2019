@@ -11,6 +11,8 @@
 
 package org.usfirst.frc2619.PlyBot2019.commands;
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc2619.PlyBot2019.MathUtil;
 import org.usfirst.frc2619.PlyBot2019.Robot;
 
 /**
@@ -47,8 +49,8 @@ public class TankDrive extends Command {
         double rightSpeed, leftSpeed;
     	rightSpeed = Robot.oi.rightJoystick.getY();
     	leftSpeed = -Robot.oi.leftJoystick.getY();
-    	//rightSpeed = MathUtil.adjSpeed(rightSpeed);
-    	//leftSpeed = MathUtil.adjSpeed(leftSpeed);
+    	rightSpeed = MathUtil.adjSpeed(rightSpeed);
+    	leftSpeed = MathUtil.adjSpeed(leftSpeed);
     	Robot.driveTrain.run(leftSpeed, rightSpeed);
     }
 
