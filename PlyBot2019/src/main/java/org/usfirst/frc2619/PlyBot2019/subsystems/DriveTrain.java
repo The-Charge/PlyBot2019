@@ -87,24 +87,10 @@ public class DriveTrain extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    public WPI_TalonSRX getLeftFrontMotor()
+    
+    public void run(double left, double right)
     {
-        return leftFrontMotor;
-    }
 
-    public WPI_TalonSRX getLeftRearMotor()
-    {
-        return leftRearMotor;
-    }
-
-    public WPI_TalonSRX getRightFrontMotor()
-    {
-        return rightFrontMotor;
-    }
-
-    public WPI_TalonSRX getRightRearMotor()
-    {
-        return leftRearMotor;
     }
 }
 
