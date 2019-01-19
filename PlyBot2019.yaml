@@ -71,7 +71,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '4'
+          value: '6'
       Base: Talon SRX
       Name: CenteringRoller
     - Children: []
@@ -81,7 +81,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '5'
+          value: '7'
       Base: Talon SRX
       Name: FeedRoller
     Properties:
