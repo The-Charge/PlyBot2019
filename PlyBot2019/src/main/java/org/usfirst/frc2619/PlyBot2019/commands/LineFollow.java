@@ -66,11 +66,15 @@ public class LineFollow extends Command {
         double rightspeed = 0; //Speed for right side of drive train
 
         for (int x = 0; x < 5; x++){ //Get boolean values from digital input sensors
-            sensbool[x] = sensArray[x].get();
-            //sensbool[x] = false; //FOR TESTING ONLY!!!
+            if(x == 1 || x == 2 || x == 3)
+                sensbool[x] = sensArray[x].get();
+            else{
+                //sensbool[x] = false; //FOR TESTING ONLY!!!
+                sensbool[x] = !sensArray[x].get();
+            }
         }
 
-        for (int y = 0; y < 0; y++){ //Gathering data for doe
+        for (int y = 0; y < 5; y++){ //Gathering data for doe
             if(sensbool[y]){
                 total += y*1000;
                 ctr++;
@@ -148,9 +152,12 @@ public class LineFollow extends Command {
             rightspeed = 0;
         }
 
-        Robot.driveTrain.initSpeedMode();
-        Robot.driveTrain.setIndivSpeedPID(leftspeed, -rightspeed);
-
+        if(Robot.driveTrain.getCurrent() > 10){
+            end();
+        }
+        //Robot.driveTrain.initSpeedMode();
+        //Robot.driveTrain.setIndivSpeedPID(leftspeed, -rightspeed); //Set the speed for the bot to run at
+        Robot.driveTrain.run(leftspeed, -rightspeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -162,11 +169,14 @@ public class LineFollow extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.driveTrain.stop();
+        Robot.driveTrain.setPercentVBus();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }
