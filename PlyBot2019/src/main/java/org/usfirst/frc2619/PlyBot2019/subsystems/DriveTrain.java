@@ -289,7 +289,11 @@ public class DriveTrain extends Subsystem {
     
     public double getYaw() {
     	return ahrs.getYaw();
-    }
+	}
+	
+	public AHRS getGyro() {
+		return ahrs;
+	}
     
     public void writeDashboardValues() {
     	SmartDashboard.putBoolean("Inverted",isReversed);
