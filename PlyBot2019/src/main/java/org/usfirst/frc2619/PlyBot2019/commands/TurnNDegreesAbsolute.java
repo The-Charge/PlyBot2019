@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc2619.PlyBot2019.MathUtil;
 import org.usfirst.frc2619.PlyBot2019.Robot;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -49,8 +50,8 @@ public class TurnNDegreesAbsolute extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        motorSpeed = .5;
-        endThreshold = 5;
+        motorSpeed = .75;
+        endThreshold = 1;
         flipCtr = 0;
         gyro = new AHRS(Port.kMXP);
         if(MathUtil.calcDirection(currentAngle, m_targetAngle) == 1)
@@ -63,11 +64,12 @@ public class TurnNDegreesAbsolute extends Command {
     @Override
     protected void execute() {
         currentAngle = gyro.getAngle(); //sets the currentAngle to the gyro's current angle
-
+        
+        SmartDashboard.putNumber("Gyro Angle: ", currentAngle);
         //Checks which direction to go
-        if(MathUtil.calcDirection(currentAngle, m_targetAngle) == 1)
+        /*if(MathUtil.calcDirection(currentAngle, m_targetAngle) == 1)
         {
-            Robot.driveTrain.run(motorSpeed, -1 * motorSpeed);
+            Robot.driveTrain.run(motorSpeed, motorSpeed);
 
             if(!flip)
                 flipCtr++;
@@ -75,12 +77,12 @@ public class TurnNDegreesAbsolute extends Command {
         }
         else
         {
-            Robot.driveTrain.run(-1 * motorSpeed, motorSpeed);
+            Robot.driveTrain.run(-1 * motorSpeed, -1 * motorSpeed);
 
             if(flip)
                 flipCtr++;
             flip = false;
-        }
+        }*/
     }
 
     // Make this return true when this Command no longer needs to run execute()
