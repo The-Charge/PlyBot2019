@@ -67,7 +67,7 @@ public class TurnNDegreesAbsolute extends Command {
         
         SmartDashboard.putNumber("Gyro Angle: ", currentAngle);
         //Checks which direction to go
-        /*if(MathUtil.calcDirection(currentAngle, m_targetAngle) == 1)
+        if(MathUtil.calcDirection(currentAngle, m_targetAngle) == 1)
         {
             Robot.driveTrain.run(motorSpeed, motorSpeed);
 
@@ -82,7 +82,7 @@ public class TurnNDegreesAbsolute extends Command {
             if(flip)
                 flipCtr++;
             flip = false;
-        }*/
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
