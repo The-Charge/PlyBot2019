@@ -137,7 +137,7 @@ Children:
         - !!robotbuilder.data.properties.ParameterSet
           name: angle
           parameters:
-          - {name: targetAngle, type: double, value: '0'}
+          - {name: targetAngle, type: double, value: '90'}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
