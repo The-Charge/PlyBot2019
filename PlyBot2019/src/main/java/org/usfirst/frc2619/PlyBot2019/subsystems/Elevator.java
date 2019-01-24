@@ -76,7 +76,7 @@ public class Elevator extends Subsystem {
     public int MotionMagicAcceleration = MOTION_MAGIC_ACCELERATION_CONSTANT;
     public double MotionMagicDistance;
 
-    public boolean movable = false;
+    public boolean movable = true;
     public boolean isUp = false;
 
 
