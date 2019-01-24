@@ -381,18 +381,58 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: DriveTrain}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id008
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
         - !!robotbuilder.data.properties.ParameterSet
           name: angle
           parameters:
           - {name: targetAngle, type: double, value: '90'}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: TurnNDegreesAbsolute
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: distanceFeet,
+          type: double}
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: distance, type: double}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: velocity, type: int}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: acceleration,
+          type: int}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: DriveTrain}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id008
+        - !!robotbuilder.data.properties.ParameterSet
+          name: Drive2Feet
+          parameters:
+          - {name: distance, type: double, value: '2'}
+          - {name: velocity, type: int, value: '0'}
+          - {name: acceleration, type: int, value: '0'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: Drive1Foot
+          parameters:
+          - {name: distance, type: double, value: '1'}
+          - {name: velocity, type: int, value: '0'}
+          - {name: acceleration, type: int, value: '0'}
         name: Parameter presets
         validators: null
         value: *id008
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: TurnNDegreesAbsolute
+    Name: DriveXFeetMotionMagic
   Properties: {}
   Base: Commands
   Name: Commands
