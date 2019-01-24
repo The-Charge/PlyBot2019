@@ -190,37 +190,7 @@ public class DriveTrain extends Subsystem {
     
     
     public void MotionMagicInit(double distance) {
-    	//rightFrontMotor.follow(leftFrontMotor);
-    	
-    	MotionMagicDistance = distance;
-    	leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, MotionMagicPIDIndex, TIMEOUT_MS);
-    	rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, MotionMagicPIDIndex, TIMEOUT_MS);
-    	
-    	leftFrontMotor.selectProfileSlot(MotionMagicPIDSlot, MotionMagicPIDIndex);
-    	rightFrontMotor.selectProfileSlot(MotionMagicPIDSlot, MotionMagicPIDIndex);
-    	
-    	leftFrontMotor.config_kP(0, MotionMagicP, TIMEOUT_MS);
-    	leftFrontMotor.config_kI(0, MotionMagicI, TIMEOUT_MS);
-    	leftFrontMotor.config_kD(0, MotionMagicD, TIMEOUT_MS);
-    	leftFrontMotor.config_kF(0, MotionMagicF, TIMEOUT_MS);
-    	
-    	rightFrontMotor.config_kP(0, MotionMagicP, TIMEOUT_MS);
-    	rightFrontMotor.config_kI(0, MotionMagicI, TIMEOUT_MS);
-    	rightFrontMotor.config_kD(0, MotionMagicD, TIMEOUT_MS);
-    	rightFrontMotor.config_kF(0, MotionMagicF, TIMEOUT_MS);
-    	
-    	leftFrontMotor.configMotionAcceleration(MotionMagicAcceleration, TIMEOUT_MS);
-    	leftFrontMotor.configMotionCruiseVelocity(MotionMagicVelocity, TIMEOUT_MS);
-    	
-    	rightFrontMotor.configMotionAcceleration((int)(correctionR*MotionMagicAcceleration), TIMEOUT_MS);
-    	rightFrontMotor.configMotionCruiseVelocity((int)(correctionR*MotionMagicVelocity), TIMEOUT_MS);
-    	
-    	leftFrontMotor.setSelectedSensorPosition(0, MotionMagicPIDIndex, TIMEOUT_MS);
-    	rightFrontMotor.setSelectedSensorPosition(0, MotionMagicPIDIndex, TIMEOUT_MS);
-    	
-    	MotionMagicDistance *= TICKS_PER_FOOT;
-    	leftFrontMotor.set(ControlMode.MotionMagic, MotionMagicDistance);
-    	rightFrontMotor.set(ControlMode.MotionMagic, correctionR*MotionMagicDistance);
+    	this.MotionMagicInit(distance, MotionMagicVelocity, MotionMagicAcceleration);
     }
     
     public void MotionMagicInit(double distance, int backVelocity, int backAcceleration) {
