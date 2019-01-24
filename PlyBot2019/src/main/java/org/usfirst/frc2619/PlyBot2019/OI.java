@@ -62,7 +62,7 @@ public class OI {
 
         joystick1 = new Joystick(0);
         
-        retractBtn = new JoystickButton(joystick1, 3);
+        retractBtn = new JoystickButton(joystick1, 4);
         retractBtn.whenPressed(new Retract());
         extendBtn = new JoystickButton(joystick1, 3);
         extendBtn.whenPressed(new Extend());
