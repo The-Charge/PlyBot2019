@@ -189,10 +189,10 @@ public class DriveTrain extends Subsystem {
     }
     
     
-    public void MotionMagicInit(double distance) {
+    public void MotionMagicInit(double distanceTicks) {
     	//rightFrontMotor.follow(leftFrontMotor);
     	
-    	MotionMagicDistance = distance;
+    	MotionMagicDistance = distanceTicks;
     	leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, MotionMagicPIDIndex, TIMEOUT_MS);
     	rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, MotionMagicPIDIndex, TIMEOUT_MS);
     	
@@ -222,9 +222,12 @@ public class DriveTrain extends Subsystem {
     	leftFrontMotor.set(ControlMode.MotionMagic, MotionMagicDistance);
     	rightFrontMotor.set(ControlMode.MotionMagic, correctionR*MotionMagicDistance);
     }
-    
-    public void MotionMagicInit(double distance, int backVelocity, int backAcceleration) {
-    	MotionMagicDistance = distance;
+	/**
+	@param backVelocity raw sensor units per 100ms
+	@param backAcceleration raw sensor units per 100ms per second
+	*/
+    public void MotionMagicInit(double distanceTicks, int backVelocity, int backAcceleration) {
+    	MotionMagicDistance = distanceTicks;
     	leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, MotionMagicPIDIndex, TIMEOUT_MS);
     	rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, MotionMagicPIDIndex, TIMEOUT_MS);
     	
@@ -276,18 +279,21 @@ public class DriveTrain extends Subsystem {
     	leftFrontMotor.selectProfileSlot(1, 0);
     	rightFrontMotor.selectProfileSlot(1, 0);
     }
-    
+    /**
+	 * 
+	 * @param setSpeed percent max speed
+	 */
     public void setSpeedPID(double setSpeed) {
 		leftFrontMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SECOND * setSpeed);
 		rightFrontMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SECOND * setSpeed);
-		SmartDashboard.putNumber("Current", getCurrent());
+		SmartDashboard.putNumber("Current", getCurrentAmps());
 	}
     
-    public double getCurrent() {
+    public double getCurrentAmps() {
 		return leftFrontMotor.getOutputCurrent();
 	}
-    
-    public double getYaw() {
+
+    public double getYawDegrees() {
     	return ahrs.getYaw();
     }
     

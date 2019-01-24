@@ -72,13 +72,13 @@ public class OI {
         buttonBox = new Joystick(2);
         
         intakeOutSlowBtn = new JoystickButton(buttonBox, 4);
-        intakeOutSlowBtn.whileHeld(new RunIntake(0.2));
+        intakeOutSlowBtn.whileHeld(new RunIntake(0));
         intakeOutFastBtn = new JoystickButton(buttonBox, 6);
-        intakeOutFastBtn.whileHeld(new RunIntake(1));
+        intakeOutFastBtn.whileHeld(new RunIntake(0));
         intakeInSlowBtn = new JoystickButton(buttonBox, 3);
-        intakeInSlowBtn.whileHeld(new RunIntake(-0.2));
+        intakeInSlowBtn.whileHeld(new RunIntake(0));
         intakeInFastBtn = new JoystickButton(buttonBox, 5);
-        intakeInFastBtn.whileHeld(new RunIntake(-1));
+        intakeInFastBtn.whileHeld(new RunIntake(0));
 
 
         // SmartDashboard Buttons
