@@ -13,7 +13,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: &id002 [CANID]
-          value: '0'
+          value: '11'
       Base: Talon SRX
       Name: LeftFrontMotor
     - Children: []
@@ -23,7 +23,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '1'
+          value: '10'
       Base: Talon SRX
       Name: LeftRearMotor
     - Children: []
