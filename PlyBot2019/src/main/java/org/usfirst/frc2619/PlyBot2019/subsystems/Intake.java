@@ -86,7 +86,8 @@ public class Intake extends Subsystem {
         if (power < 0){
             centeringRoller.set(power*CENTER_OUTWARD_MULTIPLIER);
             feedRoller.set(power*CENTER_OUTWARD_MULTIPLIER);  
-        }else{
+        }
+        else{
             centeringRoller.set(power*CENTER_INWARD_MULTIPLIER);
             feedRoller.set(power*CENTER_INWARD_MULTIPLIER);  
         }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

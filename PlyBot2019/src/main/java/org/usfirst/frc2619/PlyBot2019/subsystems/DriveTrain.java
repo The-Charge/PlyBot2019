@@ -58,7 +58,8 @@ public class DriveTrain extends Subsystem {
 	
 	private final int MAX_TICKS_PER_SECOND = 8691;
     public final double TICKS_PER_FOOT = 4320;
-    private final int TIMEOUT_MS = 10;
+	private final int TIMEOUT_MS = 10;
+	public final static int CONSTANT_SLOT_SPEED_MODE = 1;
     
     public double MotionMagicP = 2;
     public double MotionMagicI = 0.001;
@@ -69,7 +70,8 @@ public class DriveTrain extends Subsystem {
     public int MotionMagicPIDIndex = 0;
     public int MotionMagicPIDSlot = 0;
     public double MotionMagicDistance;
-    public double correctionR = 1.02;
+	public double correctionR = 1.02;
+	public final static int MAX_MOTION_MAGIC_DISTANCE = 500;
     
     public final double TIMEOUT = 0.002;
     private final AHRS ahrs = new AHRS(Port.kMXP);
@@ -256,7 +258,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public boolean isAtPIDDestination() {
-		return (Math.abs(this.leftFrontMotor.getSelectedSensorPosition(MotionMagicPIDIndex) - MotionMagicDistance) < 500) || (Math.abs(this.rightFrontMotor.getSelectedSensorPosition(MotionMagicPIDIndex) - MotionMagicDistance) < 500);// || this.leftFrontMotor.getSelectedSensorPosition(MotionMagicPIDIndex) < -MotionMagicDistance + 6000)
+		return (Math.abs(this.leftFrontMotor.getSelectedSensorPosition(MotionMagicPIDIndex) - MotionMagicDistance) < MAX_MOTION_MAGIC_DISTANCE) || (Math.abs(this.rightFrontMotor.getSelectedSensorPosition(MotionMagicPIDIndex) - MotionMagicDistance) < MAX_MOTION_MAGIC_DISTANCE);// || this.leftFrontMotor.getSelectedSensorPosition(MotionMagicPIDIndex) < -MotionMagicDistance + 6000)
 	}
     
     public void initSpeedMode() {    	
@@ -273,8 +275,8 @@ public class DriveTrain extends Subsystem {
     	rightFrontMotor.config_kD(1, speedD, TIMEOUT_MS);
     	rightFrontMotor.config_kF(1, speedF, TIMEOUT_MS);
     	
-    	leftFrontMotor.selectProfileSlot(1, 0);
-    	rightFrontMotor.selectProfileSlot(1, 0);
+    	leftFrontMotor.selectProfileSlot(CONSTANT_SLOT_SPEED_MODE, 0);
+    	rightFrontMotor.selectProfileSlot(CONSTANT_SLOT_SPEED_MODE, 0);
     }
     
     public void setSpeedPID(double setSpeed) {
