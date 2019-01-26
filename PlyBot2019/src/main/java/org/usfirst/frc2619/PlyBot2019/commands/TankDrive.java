@@ -47,7 +47,7 @@ public class TankDrive extends Command {
     @Override
     protected void execute() {
         double rightSpeed, leftSpeed;
-    	rightSpeed = Robot.oi.rightJoystick.getY();
+    	rightSpeed = -Robot.oi.rightJoystick.getY();
     	leftSpeed = -Robot.oi.leftJoystick.getY();
     	rightSpeed = MathUtil.adjSpeed(rightSpeed);
     	leftSpeed = MathUtil.adjSpeed(leftSpeed);

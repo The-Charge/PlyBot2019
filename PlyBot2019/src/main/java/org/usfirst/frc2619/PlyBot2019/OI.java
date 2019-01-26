@@ -124,6 +124,9 @@ public class OI {
         SmartDashboard.putData("Retract", new Retract());
         SmartDashboard.putData("ElevatorBrakeOn", new ElevatorBrakeOn());
         SmartDashboard.putData("ElevatorBrakeOff", new ElevatorBrakeOff());
+        SmartDashboard.putData("ElevateToXPositionMotionMagic: bottom", new ElevateToXPositionMotionMagic(0.1));
+        SmartDashboard.putData("ElevateToXPositionMotionMagic: ballCollect", new ElevateToXPositionMotionMagic(0.2));
+        SmartDashboard.putData("ElevateToXPositionMotionMagic: middle", new ElevateToXPositionMotionMagic(0.4));
         SmartDashboard.putData("StopElevator", new StopElevator());
         SmartDashboard.putData("PutHatch", new PutHatch());
         SmartDashboard.putData("HoldBall", new HoldBall());
