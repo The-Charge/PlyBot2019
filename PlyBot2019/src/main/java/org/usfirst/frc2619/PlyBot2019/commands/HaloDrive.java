@@ -52,32 +52,12 @@ public class HaloDrive extends Command {
         leftInput = MathUtil.adjSpeed(leftInput);
         rightInput = MathUtil.adjSpeed(rightInput);
 
-        double leftMotorOutput = 0, rightMotorOutput = 0;
-        if(leftInput != 0 && rightInput == 0)
-        {
-            leftMotorOutput = leftInput;
-            rightMotorOutput = leftInput;
-        }
-        else if(leftInput == 0 && rightInput != 0)
-        {
-            if(rightInput > 0)
-            {
-                leftMotorOutput = rightInput;
-                rightMotorOutput = -rightInput;
-            }
-            else if(rightInput < 0)
-            {
-                leftMotorOutput = -rightInput;
-                rightMotorOutput = rightInput;
-            }
-        }
-        else
-        {
-            leftInput = leftInput/2;
-            rightInput = rightInput/2;
-            leftMotorOutput = leftInput;
-            rightMotorOutput = leftInput + rightInput;
-        }
+        double leftMotorOutput = -leftInput - rightInput;
+        double rightMotorOutput = -leftInput + rightInput;
+        double highMotorOutput = Math.max(leftMotorOutput, rightMotorOutput);
+
+        leftMotorOutput /= highMotorOutput;
+        rightMotorOutput /= highMotorOutput;
         Robot.driveTrain.run(leftMotorOutput, rightMotorOutput);
     }
 
