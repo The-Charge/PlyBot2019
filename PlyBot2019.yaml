@@ -356,8 +356,8 @@ Children:
           name: Parameters
           validators: null
           value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: power,
-            type: double, value: '-1'}
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: speed,
+            type: double, value: '0.8'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id007 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
             '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
@@ -389,8 +389,8 @@ Children:
           name: Parameters
           validators: null
           value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: power,
-            type: double, value: '-0.2'}
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: speed,
+            type: double, value: '0.2'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id007
           default: '1'
@@ -420,8 +420,8 @@ Children:
           name: Parameters
           validators: null
           value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: power,
-            type: double, value: '1'}
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: speed,
+            type: double, value: '-0.8'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id007
           default: '1'
@@ -451,8 +451,8 @@ Children:
           name: Parameters
           validators: null
           value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: power,
-            type: double, value: '0.2'}
+          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: speed,
+            type: double, value: '-0.2'}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id007
           default: '1'
@@ -946,7 +946,7 @@ Children:
         name: Parameters
         validators: null
         value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: power, type: double}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: speed, type: double}
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -1372,9 +1372,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\kaedo\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\shiva\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\workspace\PlyBot2019'}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\kaedo\FRCProjects',
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\shiva\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: 'C:\workspace\PlyBot2019'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
