@@ -94,9 +94,9 @@ public class OI {
         elevateToBottomBtn.whileHeld(new ElevateToXPositionMotionMagic(0.1));
         leftJoystick = new Joystick(0);
         
-        shiftLowBtn = new JoystickButton(leftJoystick, 10);
+        shiftLowBtn = new JoystickButton(leftJoystick, 5);
         shiftLowBtn.whenPressed(new ShiftLow());
-        shiftHighBtn = new JoystickButton(leftJoystick, 9);
+        shiftHighBtn = new JoystickButton(leftJoystick, 6);
         shiftHighBtn.whenPressed(new ShiftHigh());
         putHatchBtn = new JoystickButton(leftJoystick, 8);
         putHatchBtn.whileHeld(new PutHatch());

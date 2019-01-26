@@ -516,7 +516,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '9'
+          value: '6'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -545,7 +545,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '10'
+          value: '5'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -1121,10 +1121,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Shifters}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id012 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id012
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Instant Command
@@ -1143,10 +1143,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Shifters}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id013 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id013
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Instant Command
