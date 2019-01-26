@@ -63,24 +63,6 @@ Children:
         value: []
     Base: Subsystem
     Name: DriveTrain
-  - Children: []
-    Properties:
-      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
-        name: Send to SmartDashboard, validators: null, value: false}
-      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Default command parameters
-        validators: null
-        value: []
-      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
-      Constants: !!robotbuilder.data.properties.ConstantsProperty
-        default: []
-        name: Constants
-        validators: null
-        value: &id003 []
-    Base: Subsystem
-    Name: MotorClaw
   - Children:
     - Children: []
       Properties:
@@ -113,9 +95,9 @@ Children:
         default: []
         name: Constants
         validators: null
-        value: *id003
+        value: []
     Base: Subsystem
-    Name: SolenoidKicker
+    Name: Kicker
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -129,9 +111,7 @@ Children:
           default: []
           name: Parameters
           validators: null
-          value:
-          - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: isExtended,
-            type: boolean, value: 'true'}
+          value: []
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
             '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24',
@@ -145,7 +125,7 @@ Children:
           name: Command
           type: Command
           validators: [TypeDropdownSelected]
-          value: MoveSolenoidKicker
+          value: ExtendKicker
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: [whileHeld, whenPressed, whenReleased]
           default: whileHeld
@@ -153,23 +133,23 @@ Children:
           validators: null
           value: whileHeld
       Base: Joystick Button
-      Name: ExtendKickerBtn
+      Name: MoveKickerBtn
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: &id004 ['0', '1', '2', '3', '4', '5']
+        choices: &id003 ['0', '1', '2', '3', '4', '5']
         default: 1
         name: Number
-        validators: &id005 [Joystick]
+        validators: &id004 [Joystick]
         value: '0'
     Base: Joystick
     Name: LeftJoystick
   - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: *id004
+        choices: *id003
         default: 1
         name: Number
-        validators: *id005
+        validators: *id004
         value: '1'
     Base: Joystick
     Name: RightJoystick
@@ -229,25 +209,20 @@ Children:
         default: []
         name: Parameters
         validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: isExtended, type: boolean}
+        value: []
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: SolenoidKicker}
+        name: Requires, type: Subsystem, validators: null, value: Kicker}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id006
-        - !!robotbuilder.data.properties.ParameterSet
-          name: isRetracted
-          parameters:
-          - {name: isExtended, type: boolean, value: 'false'}
+        default: &id005 []
         name: Parameter presets
         validators: null
-        value: *id006
+        value: *id005
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: MoveSolenoidKicker
+    Name: ExtendKicker
   Properties: {}
   Base: Commands
   Name: Commands
@@ -269,9 +244,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\shiva\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\kaedo\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\workspace\PlyBot2019'}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\shiva\FRCProjects',
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\kaedo\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: 'C:\workspace\PlyBot2019'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
