@@ -71,6 +71,13 @@ public class HaloDrive extends Command {
                 rightMotorOutput = rightInput;
             }
         }
+        else
+        {
+            leftInput = leftInput/2;
+            rightInput = rightInput/2;
+            leftMotorOutput = leftInput;
+            rightMotorOutput = leftInput + rightInput;
+        }
         Robot.driveTrain.run(leftMotorOutput, rightMotorOutput);
     }
 
