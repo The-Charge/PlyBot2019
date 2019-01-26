@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     */
     
     private static final int BAUD_RATE = 115200;
-    private static final SerialPort.Port SERIAL_PORT = SerialPort.Port.kUSB1;
+    private static final SerialPort.Port SERIAL_PORT = SerialPort.Port.kUSB;
 
     public static SerialPort visionPort = null;
     public static int loopCount = 0;
@@ -116,13 +116,13 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        // test connection to the vision camera
+        this.pingSerial();
+
         autonomousCommand = chooser.getSelected();
 
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
-        
-        // test connection to the vision camera
-        this.pingSerial();
     }
 
     /**
@@ -130,22 +130,22 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-
         // read information from the vision camera
         this.readSerial();
+
+        Scheduler.getInstance().run();
     }
 
     @Override
     public void teleopInit() {
+        // test connection to the vision camera
+        this.pingSerial();
+
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-
-        // test connection to the vision camera
-        this.pingSerial();
     }
 
     /**
@@ -153,10 +153,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-
         // read information from the vision camera
         this.readSerial();
+
+        Scheduler.getInstance().run();
     }
 
     /**
@@ -180,8 +180,12 @@ public class Robot extends TimedRobot {
      */
     private void readSerial() {
         String serialInfo = "";
-        if (visionPort == null)
+        if (visionPort == null) {
+            System.out.println("SerialPort is not valid");
             return;
+        }
+
+        System.out.println("Serial info: " + visionPort.readString());
 
         if (visionPort.getBytesReceived() > 0) {
             serialInfo = visionPort.readString();
@@ -189,6 +193,7 @@ public class Robot extends TimedRobot {
             System.out.println("Waited: " + loopCount + " loops, Rcv'd: " + serialInfo);
             loopCount = 0;
         } else {
+            System.out.println("Waiting for " + loopCount + " loops");
             loopCount++;
         }
     }
