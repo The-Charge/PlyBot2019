@@ -70,7 +70,7 @@ public class TurnNDegreesAbsolute extends Command {
         //Checks which direction to go
         if(MathUtil.calcDirection(currentAngle, m_targetAngle) == 1)
         {
-            Robot.driveTrain.run(motorSpeed, motorSpeed);
+            Robot.driveTrain.run(motorSpeed, -motorSpeed);
 
             if(!flip)
                 flipCtr++;
@@ -78,7 +78,7 @@ public class TurnNDegreesAbsolute extends Command {
         }
         else
         {
-            Robot.driveTrain.run(-1 * motorSpeed, -1 * motorSpeed);
+            Robot.driveTrain.run(-1 * motorSpeed, motorSpeed);
 
             if(flip)
                 flipCtr++;
