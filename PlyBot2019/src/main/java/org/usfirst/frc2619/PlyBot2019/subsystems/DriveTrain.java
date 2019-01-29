@@ -77,7 +77,7 @@ public class DriveTrain extends Subsystem {
 	public final double TURN_INNER_SPEED_DEFAULT = -0.5;
     
     public static boolean isReversed = false;
-    public boolean driveLocked = false;
+    public static boolean driveLocked = false;
     public boolean quarterSpeed = false;
     public boolean halfSpeed = false;
 
