@@ -70,7 +70,7 @@ public class PIDLineFollow extends PIDCommand {
             //sensbool[x] = false; //FOR TESTING ONLY!!!
         }
 
-        for (int y = 0; y < 0; y++){ //Gathering data for doe
+        for (int y = 0; y < 5; y++){ //Gathering data for doe
             if(sensbool[y]){
                 total += y;
                 ctr++;
