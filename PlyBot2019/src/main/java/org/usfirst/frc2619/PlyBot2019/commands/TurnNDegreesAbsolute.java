@@ -55,7 +55,7 @@ public class TurnNDegreesAbsolute extends Command {
         endThreshold = 1;
         flipCtr = 0;
         gyro = new AHRS(Port.kMXP);
-        this.setTimeout(5);
+        this.setTimeout(2);
         if(MathUtil.calcDirection(currentAngle, m_targetAngle) == 1)
             flip = true;
         else
@@ -92,7 +92,7 @@ public class TurnNDegreesAbsolute extends Command {
     protected boolean isFinished() {
         //Tests whether the angle is within a certain range so it knows when it's done
         
-        if((Math.abs(currentAngle - m_targetAngle) <= endThreshold || 360 - Math.abs(currentAngle - m_targetAngle) <= endThreshold) && flipCtr > FLIPCTR_THRESHOLD && this.isTimedOut())    //flipCtr threshold can be changed
+        if((Math.abs(currentAngle - m_targetAngle) <= endThreshold || 360 - Math.abs(currentAngle - m_targetAngle) <= endThreshold) && flipCtr > FLIPCTR_THRESHOLD || this.isTimedOut())    //flipCtr threshold can be changed
             return true;
         
         return false;
