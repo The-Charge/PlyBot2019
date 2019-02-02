@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
     /*
     private static final int CAM_WIDTH = 320;
     private static final int CAM_HEIGHT = 240;
-    private static final int CAM_FPS = 30;
+    private static final int CAM_FPS = 60;
     */
     
     private static final int BAUD_RATE = 115200;
@@ -185,12 +185,12 @@ public class Robot extends TimedRobot {
             return;
         }
 
-        System.out.println("Serial info: " + visionPort.readString());
+        System.out.println("Serial info: \"" + visionPort.readString() + "\", " + visionPort.getBytesReceived() + " bytes received.");
 
         if (visionPort.getBytesReceived() > 0) {
             serialInfo = visionPort.readString();
 
-            System.out.println("Waited: " + loopCount + " loops, Rcv'd: " + serialInfo);
+            System.out.println("Success, waited: " + loopCount + " loops, Rcv'd: " + serialInfo);
             loopCount = 0;
         } else {
             System.out.println("Waiting for " + loopCount + " loops");
