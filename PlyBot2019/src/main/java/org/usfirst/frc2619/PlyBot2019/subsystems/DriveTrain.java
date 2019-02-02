@@ -282,7 +282,12 @@ public class DriveTrain extends Subsystem {
 		rightFrontMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SECOND * setSpeed);
 		SmartDashboard.putNumber("Current", getCurrent());
 	}
-    
+	public void setIndivSpeedPID(double lspeed, double rspeed){
+		leftFrontMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SECOND * lspeed);
+		rightFrontMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SECOND * rspeed);
+		SmartDashboard.putNumber("Current", getCurrent());
+	}
+	
     public double getCurrent() {
 		return leftFrontMotor.getOutputCurrent();
 	}

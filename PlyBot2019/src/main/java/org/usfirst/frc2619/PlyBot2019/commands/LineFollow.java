@@ -62,12 +62,12 @@ public class LineFollow extends Command {
         int ctr = 0; //self explanatory - used to count current sensors active
         int total = 0; //self explanatory - total of sensor assigned integer positions
         double doe = 9999; // Degree Of Error - calculated with total and ctr
-        double leftspeed; //Speed for left side of drive train
-        double rightspeed; //Speed for right side of drive train
+        double leftspeed = 0; //Speed for left side of drive train
+        double rightspeed = 0; //Speed for right side of drive train
 
         for (int x = 0; x < 5; x++){ //Get boolean values from digital input sensors
-            //sensbool[x] = sensArray[x].get();
-            sensbool[x] = false; //FOR TESTING ONLY!!!
+            sensbool[x] = sensArray[x].get();
+            //sensbool[x] = false; //FOR TESTING ONLY!!!
         }
 
         for (int y = 0; y < 0; y++){ //Gathering data for doe
@@ -83,8 +83,8 @@ public class LineFollow extends Command {
         } 
         else doe = (total / ctr) - 2000; //Calculate Degree of Error
 
-        
-        doe = SmartDashboard.getNumber("Degree", 0);
+        SmartDashboard.putNumber("Current Degree", doe);
+        //doe = SmartDashboard.getNumber("Degree", 0); //FOR TESTING PURPOSES ONLY
         //If structure to change speed
         if (doe <= -2000){
             leftspeed = 0;
@@ -93,37 +93,37 @@ public class LineFollow extends Command {
         }
         else if(doe <= -1500){
             leftspeed = .125;
-            rightspeed = -.5;
+            rightspeed = .5;
             doemem = doe;
         }
         else if(doe <= -1000){
             leftspeed = .4;
-            rightspeed = -.5;
+            rightspeed = .5;
             doemem = doe;
         }
         else if(doe <= -500){
             leftspeed = .45;
-            rightspeed = -.5;
+            rightspeed = .5;
             doemem = doe;
         }
         else if(doe <= 0){
             leftspeed = .5;
-            rightspeed = -.5;
+            rightspeed = .5;
             doemem = doe;
         }
         else if (doe <= 500){
             leftspeed = .5;
-            rightspeed = -.45;
+            rightspeed = .45;
             doemem = doe;
         }
         else if (doe <= 1000){
             leftspeed = .5;
-            rightspeed = -.4;
+            rightspeed = .4;
             doemem = doe;
         }
         else if(doe <= 1500){
             leftspeed = .5;
-            rightspeed = -.125;
+            rightspeed = .125;
             doemem = doe;
         }
         else if(doe <= 2000){
@@ -131,20 +131,25 @@ public class LineFollow extends Command {
             rightspeed = 0;
             doemem = doe;
         }
+        else if(doemem == 9999 && doe == 9999){
+            leftspeed = .5;
+            rightspeed = .5;
+        }
         else if(doemem < 0 && doe == 9999){ //All sensors see nothing, check last value
             leftspeed = -.5;
-            rightspeed = -.5;
+            rightspeed = .5;
         }
         else if(doemem > 0 && doe == 9999){
             leftspeed = .5;
-            rightspeed = .5;
+            rightspeed = -.5;
         }
         else{
             leftspeed = 0;
             rightspeed = 0;
         }
 
-        Robot.driveTrain.run(leftspeed, rightspeed);
+        Robot.driveTrain.initSpeedMode();
+        Robot.driveTrain.setIndivSpeedPID(leftspeed, -rightspeed);
 
     }
 
