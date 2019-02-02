@@ -162,16 +162,16 @@ public class DriveTrain extends Subsystem {
     	}
     		
     	if (driveLocked) {
-			double avSpeed = (leftSpeed + rightSpeed) / 2.0;
+			double avSpeed = (leftSpeed - rightSpeed) / 2.0;
 			leftSpeed = avSpeed;
 			rightSpeed = avSpeed;
 			if (!isReversed) {
 				leftFrontMotor.set(leftSpeed);
-				rightFrontMotor.set(rightSpeed);
+				rightFrontMotor.set(-rightSpeed);
 			} 
 			else {
-				leftFrontMotor.set(-1 * leftSpeed);
-				rightFrontMotor.set(-1 * rightSpeed);
+				leftFrontMotor.set(-leftSpeed);
+				rightFrontMotor.set(rightSpeed);
 			}
 		} 
     	else if (!isReversed) {
