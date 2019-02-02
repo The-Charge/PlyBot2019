@@ -148,8 +148,11 @@ public class LineFollow extends Command {
             rightspeed = 0;
         }
 
+        if(Robot.driveTrain.getCurrent() > 10){
+            end();
+        }
         Robot.driveTrain.initSpeedMode();
-        Robot.driveTrain.setIndivSpeedPID(leftspeed, -rightspeed);
+        Robot.driveTrain.setIndivSpeedPID(leftspeed, -rightspeed); //Set the speed for the bot to run at
 
     }
 
@@ -162,11 +165,14 @@ public class LineFollow extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.driveTrain.stop();
+        Robot.driveTrain.setPercentVBus();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }
