@@ -66,8 +66,13 @@ public class LineFollow extends Command {
         double rightspeed = 0; //Speed for right side of drive train
 
         for (int x = 0; x < 5; x++){ //Get boolean values from digital input sensors
-            sensbool[x] = sensArray[x].get();
-            //sensbool[x] = false; //FOR TESTING ONLY!!!
+            if(x == 1 || x == 2 || x == 3)
+                sensbool[x] = sensArray[x].get();
+            else{
+                sensbool[x] = false; //FOR TESTING ONLY!!!
+                //sensbool[x] = !sensArray[x].get();
+            }
+                
         }
 
         for (int y = 0; y < 5; y++){ //Gathering data for doe
@@ -151,9 +156,9 @@ public class LineFollow extends Command {
         if(Robot.driveTrain.getCurrent() > 10){
             end();
         }
-        Robot.driveTrain.initSpeedMode();
-        Robot.driveTrain.setIndivSpeedPID(leftspeed, -rightspeed); //Set the speed for the bot to run at
-
+        //Robot.driveTrain.initSpeedMode();
+        //Robot.driveTrain.setIndivSpeedPID(leftspeed, -rightspeed); //Set the speed for the bot to run at
+        Robot.driveTrain.run(leftspeed, -rightspeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
