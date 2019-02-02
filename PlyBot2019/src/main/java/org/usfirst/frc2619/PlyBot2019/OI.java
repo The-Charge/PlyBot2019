@@ -83,7 +83,7 @@ public class OI {
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
-        SmartDashboard.putData("TankDrive: Default", new TankDrive(0));
+        SmartDashboard.putData("TankDrive: Default", new TankDrive());
         SmartDashboard.putData("IntakeInFast", new IntakeInFast());
         SmartDashboard.putData("IntakeInSlow", new IntakeInSlow());
         SmartDashboard.putData("IntakeOutFast", new IntakeOutFast());
