@@ -97,8 +97,7 @@ public class SensorBar extends Subsystem {
     public void FollowTheLine()
     {
         //SmartDashboard.putBoolean("Seeing Line: ", sensorMiddle.get());
-       // if (sensorMiddle.get()) TurnNDegreesAbsolute()
-
+       if (sensorMiddle.get())  SmartDashboard.putBoolean("Seeing Line: ", sensorMiddle.get());
 
     }
 }
