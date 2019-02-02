@@ -150,15 +150,15 @@ public class DriveTrain extends Subsystem {
     	}
     		
     	if (driveLocked) {
-			double avSpeed = (leftSpeed + rightSpeed) / 2.0;
+			double avSpeed = (leftSpeed - rightSpeed) / 2.0;
 			leftSpeed = avSpeed;
 			rightSpeed = avSpeed;
 			if (!isReversed) {
 				leftFrontMotor.set(leftSpeed);
-				rightFrontMotor.set(-1 * rightSpeed);
+				rightFrontMotor.set(-rightSpeed);
 			} 
 			else {
-				leftFrontMotor.set(-1 * leftSpeed);
+				leftFrontMotor.set(-leftSpeed);
 				rightFrontMotor.set(rightSpeed);
 			}
 		} 
