@@ -58,7 +58,7 @@ public class LineFollow extends Command {
         boolean[] sensbool = new boolean[5]; //Var to hold boolean values and be easily changed
         int ctr = 0; //self explanatory - used to count current sensors active
         int total = 0; //self explanatory - total of sensor assigned integer positions
-        int doe = -9999; //Degree Of Error - calculated with total and ctr
+        int doe = 9999; //Degree Of Error - calculated with total and ctr
 
         for (int x = 0; x < 5; x++){ //Get boolean values from digital input sensors
             sensbool[x] = sensArray[x].get();
@@ -73,8 +73,36 @@ public class LineFollow extends Command {
         
         if (ctr==0) total = -1; //Null sensor situation - way far left or right checker
         else {
-            doe = (total / ctr) - 2;
-            doemem = doe;
+            doe = (total / ctr) - 2000; //Calculate Degree of Error
+        }
+
+        //If structure to change speed
+        if (doe <= -2000){
+            
+        }
+        else if(doe <= -1500){
+
+        }
+        else if(doe <= -1000){
+
+        }
+        else if(doe <= -500){
+
+        }
+        else if(doe <= 0){
+
+        }
+        else if (doe <= 500){
+
+        }
+        else if (doe <= 1000){
+
+        }
+        else if(doe <= 1500){
+
+        }
+        else if(doe <= 2000){
+
         }
     }
 
