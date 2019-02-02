@@ -2,10 +2,11 @@ package org.usfirst.frc2619.PlyBot2019;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import org.usfirst.frc2619.PlyBot2019.VisionData;
+import org.usfirst.frc2619.PlyBot2019.VisionData.Target;
 
 public class VisionUtil {
     
-    //SerialPort constants
+    // SerialPort constants
     public static final int DEFAULT_BAUD_RATE = 115200;
     public static final SerialPort.Port DEFAULT_SERIAL_PORT = SerialPort.Port.kUSB;
 
@@ -13,6 +14,16 @@ public class VisionUtil {
     public static final int CAM_WIDTH = 320;
     public static final int CAM_HEIGHT = 240;
     public static final int CAM_FPS = 60;
+
+    // Calculation constats
+    public static final int CENTER_X = (int)(CAM_WIDTH / 2);
+    public static final int CENTER_Y = (int)(CAM_HEIGHT / 2);
+
+    public static final double FOV_H = 65;
+    public static final double FOV_V = 49.75;
+
+    public static final double FOCAL_LENGTH_H = CAM_WIDTH / (2 * Math.tan(FOV_H / 2));
+    public static final double FOCAL_LENGTH_V = CAM_HEIGHT / (2 * Math.tan(FOV_V / 2));
 
     /**
      * Creates a SerialPort object with the default Baud Rate and Port
@@ -72,8 +83,95 @@ public class VisionUtil {
      * @return a VisionData object
      */
     public static VisionData parseMessage(String msg) {
+        return VisionData.parseMessage(msg);
+    }
 
-        return new VisionData();
+    /**
+     * Calculates horizontal angle from center to a coordinate.
+     * 
+     * @param x x coordinate
+     * @return horizontal angle from center to a coordinate
+     */
+    public static double calculateYaw(int x) {
+        return Math.atan( (CENTER_X - x) / FOCAL_LENGTH_H );
+    }
+
+    public static int calculate
+
+    /**
+     * Calculates vertical angle from center to a coordinate.
+     * 
+     * @param y coordinate
+     * @return vertical angle from center to a coordinate
+     */
+    public static double calculatePitch(int y) {
+        return Math.atan( (CENTER_Y - y) / FOCAL_LENGTH_V );
+    }
+
+    /**
+     * Calculates the distance from the camera directly to the target coordinates
+     * 
+     * @param x The x coordinate of the point
+     * @param y The y coordinate of the point
+     * @param targetHeight The height of the target
+     * @return Range from camera to target
+     */
+    public static double calculateRange(int x, int y, double targetHeight) {
+        double height = targetHeight - getCamHeight();
+        double yaw = calculateYaw(x);
+        double pitch = calculatePitch(y);
+
+        double range = Math.sqrt( Math.pow((height/Math.sin(pitch)), 2) + (Math.pow((height * Math.tan(yaw) / Math.tan(pitch)), 2)) );
+        return range;
+    }
+
+    /**
+     * Calculates the distance from the camera directly to the target
+     * 
+     * @param target The target to find the range to
+     * @param targetHeight The height of the target
+     * @return Range from the robot to the target
+     */
+    public static double calculateRange(Target target, double targetHeight) {
+        int x = target.getX();
+        int y = target.getY();
+
+        return calculateRange(x, y, targetHeight);
+    }
+
+    /**
+     * Calculates the ground distance from the robot to the target coordinates
+     * 
+     * @param x The x coordinate of the point
+     * @param y The y coordinate of the point
+     * @param targetHeight The height of the target
+     * @return Ground distance from the robot to the target
+     */
+    public static double calculateHorizontalDistance(int x, int y, double targetHeight) {
+        double height = targetHeight - getCamHeight();
+        double yaw = calculateYaw(x);
+        double pitch = calculatePitch(y);
+
+        double dist = Math.sqrt( Math.pow((height/Math.tan(pitch)), 2) + (Math.pow((height * Math.tan(yaw) / Math.tan(pitch)), 2)) );
+        return dist;
+    }
+
+    /**
+     * Calculates the ground distance from the robot to the target
+     * 
+     * @param target The target to find the distance to
+     * @param targetHeight The height of the target
+     * @return Ground distance from the robot to the target
+     */
+    public static double calculateHorizontalDistance(Target target, double targetHeight) {
+        int x = target.getX();
+        int y = target.getY();
+
+        return calculateHorizontalDistance(x, y, targetHeight);
+    }
+
+    public static double getCamHeight() {
+        return 5.0;
     }
 
 }
