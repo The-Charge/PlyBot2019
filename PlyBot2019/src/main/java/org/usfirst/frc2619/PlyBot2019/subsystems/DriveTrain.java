@@ -305,6 +305,11 @@ public class DriveTrain extends Subsystem {
     
     public void writeDashboardValues() {
     	SmartDashboard.putBoolean("Inverted",isReversed);
-    }
+	}
+	
+	public void writePIDs(double output){
+		leftFrontMotor.pidWrite(output);
+		rightFrontMotor.pidWrite(-output);
+	}
 }
 
