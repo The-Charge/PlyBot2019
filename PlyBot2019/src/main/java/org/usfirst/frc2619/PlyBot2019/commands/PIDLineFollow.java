@@ -66,7 +66,12 @@ public class PIDLineFollow extends PIDCommand {
         double doe = 9999; // Degree Of Error - calculated with total and ctr
         
         for (int x = 0; x < 5; x++){ //Get boolean values from digital input sensors
+            if (x == 1 || x == 2 || x == 3) 
             sensbool[x] = sensArray[x].get();
+            else
+            {
+                sensbool[x] = false;
+            }
             //sensbool[x] = false; //FOR TESTING ONLY!!!
         }
 
@@ -97,12 +102,9 @@ public class PIDLineFollow extends PIDCommand {
         output = output / 4;
 
         if(output != 0){
-            Robot.driveTrain.run(-output, output);
+            Robot.driveTrain.writeIndivPIDs(-output, output);
         }
-        else
-        Robot.driveTrain.run(0.25, 0.25);
-
-
+        else Robot.driveTrain.writePIDs(0.25);
       
     }
     // Called just before this Command runs the first time
@@ -117,9 +119,6 @@ public class PIDLineFollow extends PIDCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-       
-       
-
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -131,11 +130,13 @@ public class PIDLineFollow extends PIDCommand {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.driveTrain.setPercentVBus();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }
