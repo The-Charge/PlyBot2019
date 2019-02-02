@@ -92,10 +92,13 @@ public class SensorBar extends Subsystem {
     @Override
     public void periodic() {
         // Put code here to be run every loop
+        SmartDashboard.putBoolean("Sensor 0 On", !sensBar[0].get());
         SmartDashboard.putBoolean("Sensor 1 On", sensBar[1].get());
 
         SmartDashboard.putBoolean("Sensor 2 On", sensBar[2].get());
         SmartDashboard.putBoolean("Sensor 3 On", sensBar[3].get());
+      
+        SmartDashboard.putBoolean("Sensor 4 On", !sensBar[4].get());
         //Need 0 and 4
     }
 

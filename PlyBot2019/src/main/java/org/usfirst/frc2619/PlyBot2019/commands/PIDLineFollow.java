@@ -70,7 +70,8 @@ public class PIDLineFollow extends PIDCommand {
             sensbool[x] = sensArray[x].get();
             else
             {
-                sensbool[x] = false;
+                //sensbool[x] = false;
+                sensbool[x] = !sensArray[x].get();
             }
             //sensbool[x] = false; //FOR TESTING ONLY!!!
         }
@@ -84,7 +85,7 @@ public class PIDLineFollow extends PIDCommand {
         
         if (ctr==0){
             total = -1; //Null sensor situation - way far left or right checker
-            doe = 9999; //Ensure doe reads an impossible value
+            doe = 0; //Ensure doe reads an impossible value
         } 
         else doe = (total / ctr) - 2; //Calculate Degree of Error
 
@@ -102,9 +103,9 @@ public class PIDLineFollow extends PIDCommand {
         output = output / 4;
 
         if(output != 0){
-            Robot.driveTrain.writeIndivPIDs(-output, output);
+            Robot.driveTrain.writeIndivPIDs(output, -output);
         }
-        else Robot.driveTrain.writePIDs(0.25);
+        else Robot.driveTrain.writeIndivPIDs(0.25, 0.25);
       
     }
     // Called just before this Command runs the first time
@@ -119,11 +120,13 @@ public class PIDLineFollow extends PIDCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        if (Robot.driveTrain.getCurrent() > 10) end();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
+
         return false;
     }
 
