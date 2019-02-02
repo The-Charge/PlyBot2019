@@ -72,7 +72,6 @@ public class LineFollow extends Command {
                 sensbool[x] = false; //FOR TESTING ONLY!!!
                 //sensbool[x] = !sensArray[x].get();
             }
-                
         }
 
         for (int y = 0; y < 5; y++){ //Gathering data for doe
