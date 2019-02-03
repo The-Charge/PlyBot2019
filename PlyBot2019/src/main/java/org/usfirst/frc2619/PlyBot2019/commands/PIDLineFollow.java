@@ -100,12 +100,12 @@ public class PIDLineFollow extends PIDCommand {
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-        output = output / 4;
+        output = output / 3.5;
 
         if(output != 0){
-            Robot.driveTrain.writeIndivPIDs(output, -output);
+            Robot.driveTrain.writeIndivPIDs(output, output);
         }
-        else Robot.driveTrain.writeIndivPIDs(0.25, 0.25);
+        else Robot.driveTrain.writeIndivPIDs(0.25, -0.25);
       
     }
     // Called just before this Command runs the first time
