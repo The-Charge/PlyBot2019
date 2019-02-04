@@ -152,54 +152,35 @@ public class DriveTrain extends Subsystem {
     	double leftSpeed = l;		//This is percent of motor output
     	double rightSpeed = r;		//This too
     	
-    	if (quarterSpeed) {
+    	if (quarterSpeed) {//additional mode: quarterSpeed
 	    		leftSpeed = l *.25;
 	    		rightSpeed = r *.25;
     	}
-    	else if (halfSpeed) {
+    	else if (halfSpeed) {//additional mode: halfSpeed
     		leftSpeed = l *.5;
     		rightSpeed = r *.5;
 		}
-		if(flipDrive)
-		{
-			isReversed = true;
-		}
-    	if(!flipDrive){
-			if (driveLocked) {
-				double avSpeed = (leftSpeed - rightSpeed) / 2.0;
-				leftSpeed = avSpeed;
-				rightSpeed = avSpeed;
-				if (!isReversed) {
-					leftFrontMotor.set(leftSpeed);
-					rightFrontMotor.set(-rightSpeed);
-				} 
-				else {
-					leftFrontMotor.set(-leftSpeed);
-					rightFrontMotor.set(rightSpeed);
-				}
-			} 
-			else if (!isReversed) {
+		if (driveLocked) { //additional mode: driveLocked 
+			double avSpeed = (leftSpeed - rightSpeed) / 2.0;
+			leftSpeed = avSpeed;
+			rightSpeed = avSpeed;
+			if (!isReversed) {//additional mode: driveLocked
 				leftFrontMotor.set(leftSpeed);
-				rightFrontMotor.set(rightSpeed);
+				rightFrontMotor.set(-rightSpeed);
 			} 
-			else {
-				leftFrontMotor.set(-1 * leftSpeed);
-				rightFrontMotor.set(-1 * rightSpeed);
+			else {//additional mode: driveLocked and isReversed
+				leftFrontMotor.set(-rightSpeed);
+				rightFrontMotor.set(leftSpeed);
 			}
-		}	
-		else if(flipDrive)
-		{
-			if (driveLocked) {
-				double avSpeed = (leftSpeed - rightSpeed) / 2.0;
-				leftSpeed = avSpeed;
-				rightSpeed = avSpeed;
-				leftFrontMotor.set(-leftSpeed);//left and right speeds not flipped here bc they are the same
-				rightFrontMotor.set(rightSpeed);
-			} 
-			leftFrontMotor.set(-1 * rightSpeed);//Left and right speeds flipped, isreversed excluded because its guarenteed true here
+		} 
+		else if (!isReversed) {
+			leftFrontMotor.set(leftSpeed);  //This if clause represents the normal drive mode.
+			rightFrontMotor.set(rightSpeed);	//no additional modes active
+		} 
+		else {//additional mode: isReversed
+			leftFrontMotor.set(-1 * rightSpeed);
 			rightFrontMotor.set(-1 * leftSpeed);
 		}
-    	
     }
 
     public void stop() {
