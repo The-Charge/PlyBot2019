@@ -149,8 +149,8 @@ public class DriveTrain extends Subsystem {
     }
 
     public void run(double l, double r) {
-    	double leftSpeed = l;
-    	double rightSpeed = r;
+    	double leftSpeed = l;		//This is percent of motor output
+    	double rightSpeed = r;		//This too
     	
     	if (quarterSpeed) {
 	    		leftSpeed = l *.25;
