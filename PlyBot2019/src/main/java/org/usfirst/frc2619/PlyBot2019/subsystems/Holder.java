@@ -77,12 +77,12 @@ public class Holder extends Subsystem {
     {
         if (isHolding)
         {
-            solenoid.set(false);
+            solenoid.set(true);
 		    isHolding = false;
         }
         else
         {
-            solenoid.set(true);
+            solenoid.set(false);
 		    isHolding = true;
         }
     }
