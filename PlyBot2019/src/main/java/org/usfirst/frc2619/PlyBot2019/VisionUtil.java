@@ -96,7 +96,15 @@ public class VisionUtil {
         return Math.atan( (CENTER_X - x) / FOCAL_LENGTH_H );
     }
 
-    public static int calculate
+    /**
+     * Calculates the rough pixel coordinate given an angle
+     * 
+     * @param yaw horizontal angle
+     * @return rough x coordinate of angle
+     */
+    public static int yawToX(double yaw) {
+        return (int)( CENTER_X - FOCAL_LENGTH_H * Math.tan(yaw) );
+    }
 
     /**
      * Calculates vertical angle from center to a coordinate.
@@ -106,6 +114,16 @@ public class VisionUtil {
      */
     public static double calculatePitch(int y) {
         return Math.atan( (CENTER_Y - y) / FOCAL_LENGTH_V );
+    }
+
+    /**
+     * Calculates the rough pixel coordinate given an angle
+     * 
+     * @param yaw vertical angle
+     * @return rough y coordinate of angle
+     */
+    public static int pitchToY(double pitch) {
+        return (int)( CENTER_Y - FOCAL_LENGTH_V * Math.tan(pitch) );
     }
 
     /**
@@ -121,8 +139,7 @@ public class VisionUtil {
         double yaw = calculateYaw(x);
         double pitch = calculatePitch(y);
 
-        double range = Math.sqrt( Math.pow((height/Math.sin(pitch)), 2) + (Math.pow((height * Math.tan(yaw) / Math.tan(pitch)), 2)) );
-        return range;
+        return Math.sqrt( Math.pow((height/Math.sin(pitch)), 2) + (Math.pow((height * Math.tan(yaw) / Math.tan(pitch)), 2)) );
     }
 
     /**
@@ -152,8 +169,8 @@ public class VisionUtil {
         double yaw = calculateYaw(x);
         double pitch = calculatePitch(y);
 
-        double dist = Math.sqrt( Math.pow((height/Math.tan(pitch)), 2) + (Math.pow((height * Math.tan(yaw) / Math.tan(pitch)), 2)) );
-        return dist;
+        return Math.sqrt( Math.pow((height/Math.tan(pitch)), 2) + (Math.pow((height * Math.tan(yaw) / Math.tan(pitch)), 2)) );
+
     }
 
     /**
@@ -171,7 +188,7 @@ public class VisionUtil {
     }
 
     public static double getCamHeight() {
-        return 5.0;
+        return 2.0;
     }
 
 }

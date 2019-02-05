@@ -2,14 +2,14 @@ package org.usfirst.frc2619.PlyBot2019;
 
 import java.util.ArrayList;
 
+
 public class VisionData {
 
     private static final String TIMESTAMP_ID = "TIME";
     private static final String TARGET_ID = "TARGET";
     private static final String PAIR_ID = "PAIR";
-    private static final String MSG_SPLIT_CHAR = ":";
+    private static final String MSG_SPLIT_CHAR = "|";
     private static final String DATA_SPLIT_CHAR = ",";
-
 
     private double timestamp;
     private ArrayList<Target> targets;
@@ -106,6 +106,9 @@ public class VisionData {
          * @param yRight the y value of the right target
          */
         public TargetPair(int xLeft, int yLeft, int xRight, int yRight) {
+            // Average the angles to find the center coordinates
+            super( (int)(VisionUtil.calculateYaw(xLeft)+VisionUtil.calculateYaw(xRight))/2,
+                   (int)(VisionUtil.calculatePitch(yLeft)+VisionUtil.calculatePitch(yRight))/2 );
             this.xLeft = xLeft;
             this.yLeft = yLeft;
             this.xRight = xRight;
