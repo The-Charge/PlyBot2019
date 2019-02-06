@@ -11,6 +11,8 @@
 
 package org.usfirst.frc2619.PlyBot2019.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc2619.PlyBot2019.Robot;
 public class RunSpark extends Command {
 
@@ -30,6 +32,7 @@ public class RunSpark extends Command {
     @Override
     protected void execute() {
         Robot.sPARXMotor.run();
+       
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,12 +1,14 @@
 package org.usfirst.frc2619.PlyBot2019.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class SPARXMotor extends Subsystem {
 
-    private CANSparkMax m_Motor;
+    public CANSparkMax m_Motor;
 
     public SPARXMotor() {
    
@@ -25,7 +27,9 @@ public class SPARXMotor extends Subsystem {
     }
     public void run()
     {
-        m_Motor.set(0.2);
+        m_Motor.setSmartCurrentLimit(5);
+        m_Motor.set(0.1);
+        SmartDashboard.putNumber("Output Current", m_Motor.getOutputCurrent());
     }
     public void stop()
     {

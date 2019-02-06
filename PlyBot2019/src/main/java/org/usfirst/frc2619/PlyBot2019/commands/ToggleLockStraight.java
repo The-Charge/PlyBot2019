@@ -40,14 +40,14 @@ public class ToggleLockStraight extends InstantCommand {
     // Called once when this command runs
     @Override
     protected void initialize() {
-        if(DriveTrain.driveLocked==false)
+        if(Robot.driveTrain.driveLocked==false)
         {
-            DriveTrain.driveLocked = true;
+            Robot.driveTrain.driveLocked = true;
             writeSmartDashboard("driveLocked is true");
         }
         else
         {
-            DriveTrain.driveLocked = false;
+            Robot.driveTrain.driveLocked = false;
             writeSmartDashboard("driveLocked is false");
         }
     }
