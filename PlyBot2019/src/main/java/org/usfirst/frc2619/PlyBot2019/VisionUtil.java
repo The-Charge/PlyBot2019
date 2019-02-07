@@ -25,6 +25,9 @@ public class VisionUtil {
     public static final double FOCAL_LENGTH_H = CAM_WIDTH / (2 * Math.tan(FOV_H / 2));
     public static final double FOCAL_LENGTH_V = CAM_HEIGHT / (2 * Math.tan(FOV_V / 2));
 
+    public static final double PORT_TARGET_HEIGHT_IN = 37.0;
+    public static final double HATCH_TARGET_HEIGHT_IN = 28.5;
+
     /**
      * Creates a SerialPort object with the default Baud Rate and Port
      * 
@@ -188,7 +191,7 @@ public class VisionUtil {
     }
 
     public static double getCamHeight() {
-        return 2.0;
+        return 14.0;
     }
 
 }

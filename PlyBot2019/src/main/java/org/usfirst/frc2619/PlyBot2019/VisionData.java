@@ -28,6 +28,79 @@ public class VisionData {
     }
 
     /**
+     * Check if any vision targets were detected
+     */
+    public boolean hasTargets() {
+        return targets.size() > 0;
+    }
+
+    /**
+     * Returns the target whose x coordinate is closest to the center of the screen
+     * Returns default target if no targets are found
+     */
+    public Target findClosestTargetCoord() {
+        int numTargets = targets.size();
+
+        if (numTargets == 0)
+            return new Target();
+
+        Target closestTarget = targets.get(0);
+        for (int i = 1; i < numTargets; i++) {
+            if (Math.abs( VisionUtil.CENTER_X - targets.get(i).x) <
+                Math.abs(VisionUtil.CENTER_X - closestTarget.x)) {
+                    closestTarget = targets.get(i);
+                }
+        }
+
+        return closestTarget;
+    }
+
+    /**
+     * Returns the yaw of the target closest to the center
+     */
+    public double findClosestTargetYaw() {
+        return VisionUtil.calculateYaw(findClosestTargetCoord().getX());
+    }
+
+    /*
+    public Target findClosestTargetDist() {
+
+        int numTargets = targets.size();
+
+        if (numTargets == 0)
+            return new Target();
+
+        Target closestTarget = targets.get(0);
+        for (int i = 1; i < numTargets; i++) {
+            if (Math.abs( VisionUtil.CENTER_X - targets.get(i).x) <
+                Math.abs(VisionUtil.CENTER_X - closestTarget.x)) {
+                    closestTarget = targets.get(i);
+                }
+        }
+
+        return closestTarget;
+    }
+
+    public Target findClosestTargetRange() {
+
+        int numTargets = targets.size();
+
+        if (numTargets == 0)
+            return new Target();
+
+        Target closestTarget = targets.get(0);
+        for (int i = 1; i < numTargets; i++) {
+            if (VisionUtil.calculateRange(targets.get(i), true) <
+                VisionUtil.calculateRange(closestTarget)) {
+                    closestTarget = targets.get(i);
+                }
+        }
+
+        return closestTarget;
+    }
+    */
+
+    /**
      * Parses a string from the camera to create a VisionData object
      * 
      * @return a new VisionData object
@@ -81,6 +154,12 @@ public class VisionData {
          * @param x The x value of the target's center
          * @param y The y value of the target's center
          */
+
+        public Target() {
+            this.x = VisionUtil.CENTER_X;
+            this.y = VisionUtil.CENTER_Y;
+        }
+        
         public Target(int x, int y) {
             this.x = x;
             this.y = y;
