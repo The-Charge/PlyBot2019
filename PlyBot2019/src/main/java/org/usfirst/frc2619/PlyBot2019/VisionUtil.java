@@ -89,6 +89,8 @@ public class VisionUtil {
         return VisionData.parseMessage(msg);
     }
 
+    
+
     /**
      * Calculates horizontal angle from center to a coordinate.
      * 
