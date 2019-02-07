@@ -19,6 +19,14 @@ public class VisionData {
         this.targets = targets;
     }
 
+    public double getTimestamp() {
+        return timestamp;
+    }
+
+    public ArrayList<Target> getTargets() {
+        return targets;
+    }
+
     /**
      * Parses a string from the camera to create a VisionData object
      * 
