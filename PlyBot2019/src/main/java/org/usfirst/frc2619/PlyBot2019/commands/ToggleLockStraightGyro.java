@@ -28,8 +28,9 @@ public class ToggleLockStraightGyro extends Command {
     //private final WPI_TalonSRX leftFrontMotor = Robot.driveTrain.LeftFrontMotor;
 	//private final WPI_TalonSRX rightFrontMotor = DriveTrain.RightFrontMotor;
 	private final double ERROR = 2;
-	private final double MULTIPLIER = 0.1;
-	
+    private final double MULTIPLIER = 0.1;
+
+    private static double yawAdjust;
 	private double previousAngleAdjustment;
 	private double error;
 	private double leftSpeed;
@@ -52,9 +53,9 @@ public class ToggleLockStraightGyro extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        previousAngleAdjustment = DriveTrain.getAngAdjusment();
-    	DriveTrain.setAngAdjustment(0.0);
-    	setPoint = DriveTrain.getAngle();
+        Robot.driveTrain.driveLocked = true;
+    	yawAdjust = 0;
+        setPoint = DriveTrain.getYaw() + yawAdjust;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -62,11 +63,11 @@ public class ToggleLockStraightGyro extends Command {
     protected void execute() {
         double correction;
     	
-    	currentAngle = DriveTrain.getAngle();
+    	currentAngle = DriveTrain.getYaw();
     	error = setPoint - currentAngle;
     	
-    	leftSpeed = DriveTrain.getLeftPercentOutput();
-    	rightSpeed = DriveTrain.getRightPercentOutput();
+    	leftSpeed = Robot.driveTrain.getLeftPercentOutput();
+    	rightSpeed = Robot.driveTrain.getRightPercentOutput();
     	
     	SmartDashboard.putNumber("Current Angle", currentAngle);
     	SmartDashboard.putNumber("Setpoint", setPoint);
@@ -95,7 +96,7 @@ public class ToggleLockStraightGyro extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.driveTrain.setAngAdjustment(previousAngleAdjustment);
+        Robot.driveTrain.setAngAdjusment(previousAngleAdjustment);
     }
 
     // Called when another command which requires one or more of the same
