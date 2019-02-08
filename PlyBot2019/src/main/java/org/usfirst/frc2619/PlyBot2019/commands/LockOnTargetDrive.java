@@ -76,7 +76,7 @@ public class LockOnTargetDrive extends PIDCommand {
 
         if (camInfo.hasTargets()) {
             leftSpeed += output;
-            rightSpeed -= output;
+            rightSpeed += -output;
 
             // Adjust values to be with [-1, 1]
             if (Math.abs(leftSpeed) > 1 || Math.abs(rightSpeed) > 1) {
