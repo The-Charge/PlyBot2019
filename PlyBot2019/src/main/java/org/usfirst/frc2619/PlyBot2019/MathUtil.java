@@ -46,4 +46,15 @@ public class MathUtil {
 		}
 		else return 0;
 	}//
+
+	public static double lerp(double input, double min, double max)	//puts a number on a scale of 0 to 1
+	{
+		return (input - min) / (max - min);
+	}
+	
+	public static double Clamp(double input, double min, double max){
+		input = input < min ? min : input;
+		input = input > max ? max : input;
+		return input;
+	}
 }

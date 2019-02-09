@@ -281,12 +281,6 @@ public class DriveTrain extends Subsystem {
 	public void setAngAdjusment(double angleDegrees) {
 		ahrs.setAngleAdjustment(angleDegrees);
 	}
-
-	public void setYawAdjustment(double yawDegrees) {
-		ahrs.setYawAdjustment(yawDegrees);
-		ahrs.getYaw();
-		
-	}
 	
 	public double getLeftPercentOutput() {
 		leftPercentOutput = leftFrontMotor.getMotorOutputPercent();
