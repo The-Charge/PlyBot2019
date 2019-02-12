@@ -2,12 +2,15 @@ package org.usfirst.frc2619.PlyBot2019;
 
 import java.util.ArrayList;
 
-
 public class VisionData {
     private static final String MSG_SPLIT_CHAR = "/";
     private static final String DATA_SPLIT_CHAR = ",";
 
     private ArrayList<Target> targets;
+
+    public VisionData() {
+        this.targets = new ArrayList<Target>();
+    }
 
     public VisionData(ArrayList<Target> targets) {
         this.targets = targets;
@@ -52,28 +55,80 @@ public class VisionData {
         return VisionUtil.calculateYaw(findClosestTargetCoord().getX());
     }
 
+    public String toString() {
+        String output = "";
+
+        for (Target target : targets) {
+            output += "(" + target.getX() + "," + target.getY() + "), ";
+        }
+
+        return output;
+    }
+
     /**
      * Parses a string from the camera to create a VisionData object
      * 
      * @return a new VisionData object
      */
     public static VisionData parseMessage(String msg) {
-        String[] msgData = msg.split(MSG_SPLIT_CHAR);
-
-        double camTimestamp = 0.0;
-        ArrayList<Target> camTargets = new ArrayList<Target>();
+        msg = msg.trim();
         
-        for (String values : msgData) {
-            String[] data = values.split(DATA_SPLIT_CHAR);
+        if (msg.equals(""))
+            return new VisionData();
+        else {
+            String[] msgParts = msg.split(DATA_SPLIT_CHAR);
 
-            int x = Integer.parseInt(data[1]);
-            int y = Integer.parseInt(data[2]);
+            if (msgParts.length % 2 != 0) {
+                // error occurred
+                return new VisionData();
+            }
+            
+            ArrayList<Target> targets = new ArrayList<Target>();
 
-            camTargets.add(new Target(x, y));
+            for (int i = 0; i < msgParts.length-1; i += 2) {
+                try {
+                    int x = Integer.parseInt(msgParts[i].trim());
+                    int y = Integer.parseInt(msgParts[i+1].trim());
+                    
+                    targets.add(new Target(x, y));
+                } catch(Exception e) {
+                    // error parsing string to int
+                    System.out.println("Error parsing string to integer");
+                    return new VisionData();
+                }
+            }
+
+            return new VisionData(targets);
         }
+        
+        /*
+        if (msg.equals("")) {
+            return new VisionData();
+        }
+        else {
+            String[] targetPairs = msg.split(MSG_SPLIT_CHAR);
+            ArrayList<Target> targets = new ArrayList<Target>();
 
-        VisionData tempVisionData = new VisionData(camTargets);
-        return tempVisionData;
+            for (String coordPair : targetPairs) {
+                String[] coords = coordPair.split(DATA_SPLIT_CHAR);
+
+                int x = 0;
+                int y = 0;
+                try {
+                    x = Integer.parseInt(coords[0]);
+                    y = Integer.parseInt(coords[1]);
+
+                } catch(Exception e) {
+                    return new VisionData();
+                }
+
+                Target tempTarget = new Target(x, y);
+                targets.add(tempTarget);
+            }
+
+            return new VisionData(targets);
+        }
+        */
     }
 
     /**

@@ -8,7 +8,7 @@ public class VisionUtil {
     
     // SerialPort constants
     public static final int DEFAULT_BAUD_RATE = 115200;
-    public static final SerialPort.Port DEFAULT_SERIAL_PORT = SerialPort.Port.kUSB;
+    public static final SerialPort.Port DEFAULT_SERIAL_PORT = SerialPort.Port.kUSB1;
 
     // Camera constants
     public static final int CAM_WIDTH = 320;
@@ -34,7 +34,18 @@ public class VisionUtil {
      * @return a SerialPort object
      */
     public static SerialPort createSerialPort() {
-        return createSerialPort(DEFAULT_BAUD_RATE, DEFAULT_SERIAL_PORT);
+        SerialPort serialPort;
+
+        try {
+            System.out.println("Creating serial port...");
+            serialPort = new SerialPort(DEFAULT_BAUD_RATE, DEFAULT_SERIAL_PORT);
+            System.out.println("Successfully created serial port.");
+        } catch (Exception e) {
+            System.out.println("Failed to create serial port.");
+            serialPort = new SerialPort(DEFAULT_BAUD_RATE, DEFAULT_SERIAL_PORT);
+        }
+
+        return serialPort;
     }
 
     /**
@@ -43,11 +54,11 @@ public class VisionUtil {
      * @return a SerialPort object
      */
     public static SerialPort createSerialPort(int baudRate, SerialPort.Port port) {
-        return new SerialPort(baudRate, port);
+        return createSerialPort(baudRate, port);
     }
 
     /**
-     * Writes a value to a SerialPort and checks if wrote successfully
+     * Writes a value to a SerialPort and checks if it wrote successfully
      */
     public static void pingSerialPort(SerialPort serialPort) {
         String msg = "ping";
@@ -65,7 +76,7 @@ public class VisionUtil {
     }
     
     /**
-     * Reads a value from a Serial Port
+     * Reads a string from a Serial Port
      * 
      * @return a String sent throught the Serial Port
      */
@@ -78,6 +89,13 @@ public class VisionUtil {
             e.printStackTrace();
             return "";
         }
+    }
+
+    /**
+     * Reads in a string from a serial port, parses it, and returns the processed data
+     */
+    public static VisionData getSerialInfo(SerialPort serialPort) {
+        return parseMessage(readSerialPort(serialPort));
     }
 
     /**
@@ -98,7 +116,7 @@ public class VisionUtil {
      * @return horizontal angle from center to a coordinate
      */
     public static double calculateYaw(int x) {
-        return Math.atan( (CENTER_X - x) / FOCAL_LENGTH_H );
+        return Math.toDegrees(Math.atan( (CENTER_X - x) / FOCAL_LENGTH_H ));
     }
 
     /**
@@ -107,9 +125,11 @@ public class VisionUtil {
      * @param yaw horizontal angle
      * @return rough x coordinate of angle
      */
+    /*
     public static int yawToX(double yaw) {
         return (int)( CENTER_X - FOCAL_LENGTH_H * Math.tan(yaw) );
     }
+    */
 
     /**
      * Calculates vertical angle from center to a coordinate.
@@ -118,7 +138,7 @@ public class VisionUtil {
      * @return vertical angle from center to a coordinate
      */
     public static double calculatePitch(int y) {
-        return Math.atan( (CENTER_Y - y) / FOCAL_LENGTH_V );
+        return Math.toDegrees(Math.atan( (CENTER_Y - y) / FOCAL_LENGTH_V ));
     }
 
     /**
@@ -127,10 +147,12 @@ public class VisionUtil {
      * @param yaw vertical angle
      * @return rough y coordinate of angle
      */
+    /*
     public static int pitchToY(double pitch) {
         return (int)( CENTER_Y - FOCAL_LENGTH_V * Math.tan(pitch) );
     }
-
+    */
+    
     /**
      * Calculates the distance from the camera directly to the target coordinates
      * 
