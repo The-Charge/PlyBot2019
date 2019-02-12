@@ -151,11 +151,6 @@ public class OI {
         SmartDashboard.putData("PIDLineFollow", new PIDLineFollow());
         SmartDashboard.putData("ToggleLockStraight", new ToggleLockStraight());
         SmartDashboard.putData("HaloDrive", new HaloDrive());
-        SmartDashboard.putData("TankDrive: Default", new TankDrive(0));
-        SmartDashboard.putData("IntakeInFast", new IntakeInFast());
-        SmartDashboard.putData("IntakeInSlow", new IntakeInSlow());
-        SmartDashboard.putData("IntakeOutFast", new IntakeOutFast());
-        SmartDashboard.putData("IntakeOutSlow", new IntakeOutSlow());
         SmartDashboard.putData("LineFollow", new LineFollow());
         SmartDashboard.putData("LineDiscover", new LineDiscover());
 
