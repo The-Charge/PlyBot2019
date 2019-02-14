@@ -19,11 +19,11 @@ public class VisionUtil {
     public static final int CENTER_X = (int)(CAM_WIDTH / 2);
     public static final int CENTER_Y = (int)(CAM_HEIGHT / 2);
 
-    public static final double FOV_H = 65;
-    public static final double FOV_V = 49.75;
+    public static final double FOV_H = Math.toRadians(65);
+    public static final double FOV_V = Math.toRadians(49.75);
 
-    public static final double FOCAL_LENGTH_H = CAM_WIDTH / (2 * Math.tan(FOV_H / 2));
-    public static final double FOCAL_LENGTH_V = CAM_HEIGHT / (2 * Math.tan(FOV_V / 2));
+    public static final double FOCAL_LENGTH_H = CAM_WIDTH / (2 * Math.tan(FOV_H / 2));  // ~251.1496923 (px)
+    public static final double FOCAL_LENGTH_V = CAM_HEIGHT / (2 * Math.tan(FOV_V / 2)); // ~258.8135151 (px)
 
     public static final double PORT_TARGET_HEIGHT_IN = 37.0;
     public static final double HATCH_TARGET_HEIGHT_IN = 28.5;
@@ -132,13 +132,13 @@ public class VisionUtil {
     */
 
     /**
-     * Calculates vertical angle from center to a coordinate.
+     * Calculates vertical angle in degreesfrom center to a coordinate.
      * 
      * @param y coordinate
      * @return vertical angle from center to a coordinate
      */
     public static double calculatePitch(int y) {
-        return Math.toDegrees(Math.atan( (CENTER_Y - y) / FOCAL_LENGTH_V ));
+        return Math.toDegrees(Math.atan( -(CENTER_Y - y) / FOCAL_LENGTH_V ));
     }
 
     /**
