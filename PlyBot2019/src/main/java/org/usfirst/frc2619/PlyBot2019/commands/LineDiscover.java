@@ -101,16 +101,16 @@ public class LineDiscover extends Command {
 
         if(state == 2){ //Calculation phase
             if(lasen == 0 && tod[1] != 0){ //Left edge sensor check Right if to prevent NOOB exception
-                angle = Math.atan((tod[0] - tod[1])/(sensdist/inpsec));// * (180 / Math.PI);
-                new TurnNDegreesRelativePID(-angle);
+                angle = -Math.atan((tod[0] - tod[1])/(sensdist/inpsec));// * (180 / Math.PI);
+                new TurnNDegreesRelativePID(angle);
             }
             else if(lasen == 4 && tod[3] != 0){ //Right edge sensor check Left if to prevent NOOB exception
                 angle = Math.atan((tod[4] - tod[3])/(sensdist/inpsec));// * (180 / Math.PI);
                 new TurnNDegreesRelativePID(angle);
             }
             else if(tod[lasen + 1] != 0){ //Check right sensor for value to use
-                angle = Math.atan((tod[lasen] - tod[lasen + 1]) / (sensdist/inpsec));// * (180 / Math.PI);
-                new TurnNDegreesRelativePID(-angle);
+                angle = -Math.atan((tod[lasen] - tod[lasen + 1]) / (sensdist/inpsec));// * (180 / Math.PI);
+                new TurnNDegreesRelativePID(angle);
             }
             else if(tod[lasen - 1] != 0){ //Check left sensor for value to use
                 angle = Math.atan((tod[lasen] - tod[lasen - 1]) / (sensdist/inpsec));// * (180 / Math.PI);
