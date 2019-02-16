@@ -11,6 +11,8 @@
 
 package org.usfirst.frc2619.PlyBot2019.commands;
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc2619.PlyBot2019.MathUtil;
 import org.usfirst.frc2619.PlyBot2019.Robot;
 
 /**
@@ -38,11 +40,38 @@ public class DroneDrive extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.driveTrain.setPercentVBus();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        double forward, turn, leftSpeed, rightSpeed;
+    	forward = -Robot.oi.leftJoystick.getRawAxis(5);
+    	turn = -Robot.oi.leftJoystick.getRawAxis(0);
+    	if (forward > 0.0) {
+            if (turn > 0.0) {
+              leftSpeed = forward - turn;
+              rightSpeed = Math.max(forward, turn);
+            } 
+            else {
+              leftSpeed = Math.max(forward, -turn);
+              rightSpeed = forward + turn;
+            }
+        } 
+        else {
+            if (turn > 0.0) {
+              leftSpeed = -Math.max(-forward, turn);
+              rightSpeed = forward + turn;
+            } 
+            else {
+              leftSpeed = forward - turn;
+              rightSpeed = -Math.max(-forward, -turn);
+            }
+        }
+    	rightSpeed = MathUtil.adjSpeed(rightSpeed);
+    	leftSpeed = MathUtil.adjSpeed(leftSpeed);
+        Robot.driveTrain.run(leftSpeed, rightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -54,11 +83,14 @@ public class DroneDrive extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.driveTrain.stop();
+    	Robot.driveTrain.setPercentVBus();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }
