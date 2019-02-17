@@ -119,14 +119,6 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
 
-        /*
-        SmartDashboard.putString("VisionData", "");
-
-        SmartDashboard.putString("Camera Info", "");
-        SmartDashboard.putNumber("Angle to closest target", 100.0);
-        SmartDashboard.putBoolean("Target detected", true);
-        */
-
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
@@ -135,12 +127,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        //String camString = VisionUtil.readSerialPort(Robot.visionPort);
-        //VisionData camInfo = VisionUtil.parseMessage(camString);
-        //VisionData camInfo = VisionUtil.getSerialInfo(Robot.visionPort);
-
-        //SmartDashboard.putString("Robot.java VisionData", camInfo.toString());
-        //SmartDashboard.putNumber("Robot.java Angle to closest target", camInfo.findClosestTargetYaw());
         
         Scheduler.getInstance().run();
     }

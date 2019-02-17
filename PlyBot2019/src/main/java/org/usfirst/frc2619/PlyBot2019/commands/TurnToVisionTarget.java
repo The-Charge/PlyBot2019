@@ -61,11 +61,12 @@ public class TurnToVisionTarget extends PIDCommand {
         camInfo = VisionUtil.getSerialInfo(Robot.visionPort);
 
         SmartDashboard.putString("VisionData", camInfo.toString());
-        SmartDashboard.putNumber("Angle to closest target", camInfo.findClosestTargetYaw());
+        SmartDashboard.putNumber("Angle to closest target", camInfo.findYawOfClosestTarget());
+        SmartDashboard.putNumber("Distance to closest target", camInfo.findClosestTargetDistance().getDistance());
 
         if (camInfo.hasTargets()) {
-            double targetYaw = camInfo.findClosestTargetYaw();
-            return targetYaw;
+            double targetYaw = camInfo.findYawOfClosestTarget();
+            return -targetYaw;
         } else {
             return 0.0;
         }

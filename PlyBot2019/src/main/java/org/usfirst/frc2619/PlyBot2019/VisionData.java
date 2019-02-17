@@ -6,6 +6,8 @@ public class VisionData {
     private static final String MSG_SPLIT_CHAR = "/";
     private static final String DATA_SPLIT_CHAR = ",";
 
+    private static final int NUM_DATA_POINTS = 3;
+
     private ArrayList<Target> targets;
 
     public VisionData() {
@@ -28,41 +30,47 @@ public class VisionData {
     }
 
     /**
-     * Returns the target whose x coordinate is closest to the center of the screen
-     * Returns default target if no targets are found
+     * Returns the yaw of the target closest to the center
      */
-    public Target findClosestTargetCoord() {
-        int numTargets = targets.size();
+    public double findClosestYaw() {
+        if (!hasTargets())
+            return 0.0;
 
-        if (numTargets == 0)
+        double closestYaw = targets.get(0).getYaw();
+        for (int i = 1; i < targets.size()-1; i++) {
+            double testYaw = targets.get(i).getYaw();
+            if (Math.abs(testYaw) < Math.abs(closestYaw))
+                closestYaw = testYaw;
+        }
+
+        return closestYaw;
+    }
+
+    /**
+     * Returns Target object with shortest distance
+     */
+    public Target findClosestTargetDistance() {
+        if (!hasTargets())
             return new Target();
 
         Target closestTarget = targets.get(0);
-        for (int i = 1; i < numTargets; i++) {
-            if (Math.abs( VisionUtil.CENTER_X - targets.get(i).x) <
-                Math.abs(VisionUtil.CENTER_X - closestTarget.x)) {
-                    closestTarget = targets.get(i);
-                }
+        for (int i = 1; i < targets.size()-1; i++) {
+            Target testTarget = targets.get(i);
+            if (testTarget.getDistance() < closestTarget.getDistance())
+                closestTarget = targets.get(i);
         }
 
         return closestTarget;
     }
 
-    /**
-     * Returns the yaw of the target closest to the center
-     */
-    public double findClosestTargetYaw() {
-        return VisionUtil.calculateYaw(findClosestTargetCoord().getX());
-    }
+    public double findYawOfClosestTarget() {
+        if (!hasTargets())
+            return 0.0;
+        
+        Target closestTarget = findClosestTargetDistance();
+        double yaw = closestTarget.getYaw();
 
-    public String toString() {
-        String output = "";
-
-        for (Target target : targets) {
-            output += "(" + target.getX() + "," + target.getY() + "), ";
-        }
-
-        return output;
+        return yaw;
     }
 
     /**
@@ -78,22 +86,23 @@ public class VisionData {
         else {
             String[] msgParts = msg.split(DATA_SPLIT_CHAR);
 
-            if (msgParts.length % 2 != 0) {
+            if (msgParts.length % NUM_DATA_POINTS != 0) {
                 // error occurred
                 return new VisionData();
             }
             
             ArrayList<Target> targets = new ArrayList<Target>();
 
-            for (int i = 0; i < msgParts.length-1; i += 2) {
+            for (int i = 0; i < msgParts.length-1; i += NUM_DATA_POINTS) {
                 try {
-                    int x = Integer.parseInt(msgParts[i].trim());
-                    int y = Integer.parseInt(msgParts[i+1].trim());
+                    double distance = Double.parseDouble(msgParts[i].trim());
+                    double yaw = Double.parseDouble(msgParts[i+1].trim());
+                    double rotation = Double.parseDouble(msgParts[i+2].trim());
                     
-                    targets.add(new Target(x, y));
+                    targets.add(new Target(distance, yaw, rotation));
                 } catch(Exception e) {
                     // error parsing string to int
-                    System.out.println("Error parsing string to integer");
+                    System.out.println("Error parsing string to double");
                     return new VisionData();
                 }
             }
@@ -101,34 +110,6 @@ public class VisionData {
             return new VisionData(targets);
         }
         
-        /*
-        if (msg.equals("")) {
-            return new VisionData();
-        }
-        else {
-            String[] targetPairs = msg.split(MSG_SPLIT_CHAR);
-            ArrayList<Target> targets = new ArrayList<Target>();
-
-            for (String coordPair : targetPairs) {
-                String[] coords = coordPair.split(DATA_SPLIT_CHAR);
-
-                int x = 0;
-                int y = 0;
-                try {
-                    x = Integer.parseInt(coords[0]);
-                    y = Integer.parseInt(coords[1]);
-
-                } catch(Exception e) {
-                    return new VisionData();
-                }
-
-                Target tempTarget = new Target(x, y);
-                targets.add(tempTarget);
-            }
-
-            return new VisionData(targets);
-        }
-        */
     }
 
     /**
@@ -137,30 +118,32 @@ public class VisionData {
      */
     public static class Target {
 
-        private int x;
-        private int y;
-
-        /**
-         * @param x The x value of the target's center
-         * @param y The y value of the target's center
-         */
+        private double distance;    //horizontal distance in inches to center of target
+        private double yaw;         //horizontal angle in degrees to center of target
+        private double rotation; //angle in degrees the target is rotated
 
         public Target() {
-            this.x = VisionUtil.CENTER_X;
-            this.y = VisionUtil.CENTER_Y;
+            distance = 0.0;
+            yaw = 0.0;
+            rotation = 0.0;
         }
         
-        public Target(int x, int y) {
-            this.x = x;
-            this.y = y;
+        public Target(double distance, double yaw, double targetAngle) {
+            this.distance = distance;
+            this.yaw = yaw;
+            this.rotation = targetAngle;
         }
 
-        public int getX() {
-            return x;
+        public double getDistance() {
+            return distance;
         }
 
-        public int getY() {
-            return y;
+        public double getYaw() {
+            return yaw;
+        }
+
+        public double getRotation() {
+            return rotation;
         }
 
     }
