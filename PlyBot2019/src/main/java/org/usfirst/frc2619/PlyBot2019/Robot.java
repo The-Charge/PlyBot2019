@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2619.PlyBot2019.commands.*;
 import org.usfirst.frc2619.PlyBot2019.subsystems.*;
 import org.usfirst.frc2619.PlyBot2019.VisionUtil;
-import org.usfirst.frc2619.PlyBot2019.VisionData;
 
 /**
  * The VM is configured to automatically run this class, and to call the
